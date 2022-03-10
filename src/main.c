@@ -329,7 +329,7 @@ static bool SMS_Initialize(void)
         APP_DEBUG("Fail to delete all messages, iResult=%d,cause:%d\r\n", iResult, Ql_RIL_AT_GetErrCode());
         return FALSE;
     }
-    APP_DEBUG("Delete all existed messages\r\n");
+    //APP_DEBUG("Delete all existed messages\r\n"); //Xóa ngày 9.3.2022
 
     return TRUE;
 }
@@ -865,11 +865,11 @@ void proc_main_task(s32 iTaskID)
             {
             case URC_SYS_INIT_STATE_IND:
             {
-                APP_DEBUG("<-- Sys Init Status %d -->\r\n", taskMsg.param2);
+                //APP_DEBUG("<-- Sys Init Status %d -->\r\n", taskMsg.param2);  //Xóa ngày 9.3.2022
                 if (SYS_STATE_SMSOK == taskMsg.param2)
                 {
-                    APP_DEBUG("\r\n<-- SMS module is ready -->\r\n");
-                    APP_DEBUG("\r\n<-- Initialize SMS-related options -->\r\n");
+                    //APP_DEBUG("\r\n<-- SMS module is ready -->\r\n"); //Xóa ngày 9.3.2022
+                    //APP_DEBUG("\r\n<-- Initialize SMS-related options -->\r\n");  //Xóa ngày 9.3.2022
                     iResult = SMS_Initialize();
                     if (!iResult)
                     {
