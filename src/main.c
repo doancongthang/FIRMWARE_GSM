@@ -406,7 +406,7 @@ void SMS_TextMode_Read(u32 nIndex)
         Ql_strcpy(Number, pDeliverTextInfo->oa);
         if (Ql_strcmp(Number, "+84764316794"))
         {
-            APP_DEBUG("Saisodienthoai");
+            //APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
         }
         else
         {
@@ -583,7 +583,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
             Ql_strcpy(Number, pDeliverTextInfo->oa);
             if (Ql_strcmp(Number, "+84764316794"))
             {
-                APP_DEBUG("Saisodienthoai");
+                //APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
             }
             else
             {
@@ -651,7 +651,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
         Ql_strcpy(Number, pDeliverTextInfo->oa);
         if (Ql_strcmp(Number, "+84764316794"))
         {
-            APP_DEBUG("Saisodienthoai");
+            //APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
         }
         else
         {
@@ -692,7 +692,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
     Ql_strcpy(Number, pDeliverTextInfo->oa);
     if (Ql_strcmp(Number, "+84764316794"))
     {
-        APP_DEBUG("Saisodienthoaigoi");
+        //APP_DEBUG("Saisodienthoaigoi");   //Xóa ngày 9.3.2022
     }
     else
     {
@@ -763,7 +763,7 @@ static void CallBack_UART_Hdlr(Enum_SerialPort port, Enum_UARTEventType msg, boo
         {
             break;
         }
-        p = Ql_strstr(m_RxBuf_Uart, "THANGTEST");
+        p = Ql_strstr(m_RxBuf_Uart, "THANGGSM");
         if (p)
         {
             APP_DEBUG("OK");
@@ -781,7 +781,7 @@ static void CallBack_UART_Hdlr(Enum_SerialPort port, Enum_UARTEventType msg, boo
             break;
         }
 
-        APP_DEBUG("<--ERROR-->\r\n");
+        //APP_DEBUG("<--ERROR-->\r\n");       //Xóa ngày 9.3.2022
     }
     break;
 
@@ -837,7 +837,7 @@ void proc_main_task(s32 iTaskID)
     // Register & open UART port
     InitSerialPort();
 
-    APP_DEBUG("OpenCPU: SMS Example\r\n");
+    //APP_DEBUG("OpenCPU: SMS Example\r\n");    //Xóa ngày 9.3.2022
 
     // START MESSAGE LOOP OF THIS TASK
     while (TRUE)
@@ -850,7 +850,7 @@ void proc_main_task(s32 iTaskID)
         {
         case MSG_ID_RIL_READY:
         {
-            APP_DEBUG("<-- RIL is ready -->\r\n");
+            //APP_DEBUG("<-- RIL is ready -->\r\n");        //Xóa ngày 9.3.2022
             Ql_RIL_Initialize(); // MUST call this function
             RIL_GPS_Open(1);
             for (i = 0; i < CON_SMS_BUF_MAX_CNT; i++)
@@ -882,25 +882,25 @@ void proc_main_task(s32 iTaskID)
             }
             case URC_SIM_CARD_STATE_IND:
             {
-                APP_DEBUG("\r\n<-- SIM Card Status:%d -->\r\n", taskMsg.param2);
+                //APP_DEBUG("\r\n<-- SIM Card Status:%d -->\r\n", taskMsg.param2);      //Xóa ngày 9.3.2022
             }
             break;
 
             case URC_GSM_NW_STATE_IND:
             {
-                APP_DEBUG("\r\n<-- GSM Network Status:%d -->\r\n", taskMsg.param2);
+                //APP_DEBUG("\r\n<-- GSM Network Status:%d -->\r\n", taskMsg.param2);   //Xóa ngày 9.3.2022
                 break;
             }
 
             case URC_GPRS_NW_STATE_IND:
             {
-                APP_DEBUG("\r\n<-- GPRS Network Status:%d -->\r\n", taskMsg.param2);
+                //APP_DEBUG("\r\n<-- GPRS Network Status:%d -->\r\n", taskMsg.param2);  //Xóa ngày 9.3.2022
                 break;
             }
 
             case URC_CFUN_STATE_IND:
             {
-                APP_DEBUG("\r\n<-- CFUN Status:%d -->\r\n", taskMsg.param2);
+                //APP_DEBUG("\r\n<-- CFUN Status:%d -->\r\n", taskMsg.param2);  //Xóa ngày 9.3.2022
                 break;
             }
 
