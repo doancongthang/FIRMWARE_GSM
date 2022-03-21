@@ -406,7 +406,7 @@ void SMS_TextMode_Read(u32 nIndex)
         Ql_strcpy(Number, pDeliverTextInfo->oa);
         if (Ql_strcmp(Number, "+84764316794"))
         {
-            //APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
+            APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
         }
         else
         {
@@ -507,7 +507,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
     if (iResult != RIL_AT_SUCCESS)
     {
         Ql_MEM_Free(pTextInfo);
-        APP_DEBUG("Fail to read text SMS[%d], cause:%d\r\n", nIndex, iResult);
+        //APP_DEBUG("Fail to read text SMS[%d], cause:%d\r\n", nIndex, iResult);    // Xóa ngày 9.3.2022
         return;
     }
 
@@ -583,7 +583,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
             Ql_strcpy(Number, pDeliverTextInfo->oa);
             if (Ql_strcmp(Number, "+84764316794"))
             {
-                //APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
+                APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
             }
             else
             {
@@ -651,7 +651,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
         Ql_strcpy(Number, pDeliverTextInfo->oa);
         if (Ql_strcmp(Number, "+84764316794"))
         {
-            //APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
+            APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
         }
         else
         {
@@ -692,7 +692,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
     Ql_strcpy(Number, pDeliverTextInfo->oa);
     if (Ql_strcmp(Number, "+84764316794"))
     {
-        //APP_DEBUG("Saisodienthoaigoi");   //Xóa ngày 9.3.2022
+        APP_DEBUG("Saisodienthoaigoi");   //Xóa ngày 9.3.2022
     }
     else
     {
