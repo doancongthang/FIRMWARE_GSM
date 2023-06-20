@@ -24,15 +24,17 @@ INCS += -I ./           \
         -I SDK/ril/inc      \
         -I src/config   \
         -I src/fota/inc \
+		-I src/ \
+
 
 #-------------------------------------------------------------------------------
 # Configure source code dirctories
 #-------------------------------------------------------------------------------
-SRC_DIRS=src\     \
-		 src\config     \
-     src\fota\src   \
-		 SDK\ril\src    \
-
+SRC_DIRS=	src\     \
+		 	src\config     \
+     		src\fota\src   \
+		 	SDK\ril\src    \
+			src\
 #-------------------------------------------------------------------------------
 # Configure source code files to compile in the source code directories
 #-------------------------------------------------------------------------------

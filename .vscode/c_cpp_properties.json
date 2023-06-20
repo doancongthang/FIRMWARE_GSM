@@ -17,7 +17,8 @@
             "intelliSenseMode": "gcc-x64",
             "compilerPath": "C:\\Program Files (x86)\\CodeSourcery\\Sourcery_CodeBench_Lite_for_ARM_EABI\\bin\\arm-none-eabi-gcc",
             "cStandard": "c11",
-            "cppStandard": "c++17"
+            "cppStandard": "c++17",
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4

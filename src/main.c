@@ -1,4 +1,4 @@
-#ifdef __CUSTOMER_CODE__
+//#ifdef __CUSTOMER_CODE__
 #include "ril.h"
 #include "ril_util.h"
 #include "ql_type.h"
@@ -22,7 +22,7 @@
 #include "ql_gprs.h"
 #include "ril_network.h"
 #include "ril_location.h"
-#if (defined(__OCPU_RIL_SUPPORT__) && defined(__OCPU_RIL_SMS_SUPPORT__))
+//#if (defined(__OCPU_RIL_SUPPORT__) && defined(__OCPU_RIL_SMS_SUPPORT__))
 #define APN "CMNET\0"
 #define USERID ""
 #define PASSWD ""
@@ -329,7 +329,7 @@ static bool SMS_Initialize(void)
         APP_DEBUG("Fail to delete all messages, iResult=%d,cause:%d\r\n", iResult, Ql_RIL_AT_GetErrCode());
         return FALSE;
     }
-    //APP_DEBUG("Delete all existed messages\r\n"); //Xóa ngày 9.3.2022
+    // APP_DEBUG("Delete all existed messages\r\n"); //Xóa ngày 9.3.2022
 
     return TRUE;
 }
@@ -406,7 +406,7 @@ void SMS_TextMode_Read(u32 nIndex)
         Ql_strcpy(Number, pDeliverTextInfo->oa);
         if (Ql_strcmp(Number, "+84764316794"))
         {
-            APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
+            APP_DEBUG("Saisodienthoai"); // Xóa ngày 9.3.2022
         }
         else
         {
@@ -507,7 +507,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
     if (iResult != RIL_AT_SUCCESS)
     {
         Ql_MEM_Free(pTextInfo);
-        //APP_DEBUG("Fail to read text SMS[%d], cause:%d\r\n", nIndex, iResult);    // Xóa ngày 9.3.2022
+        // APP_DEBUG("Fail to read text SMS[%d], cause:%d\r\n", nIndex, iResult);    // Xóa ngày 9.3.2022
         return;
     }
 
@@ -583,7 +583,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
             Ql_strcpy(Number, pDeliverTextInfo->oa);
             if (Ql_strcmp(Number, "+84764316794"))
             {
-                APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
+                APP_DEBUG("Saisodienthoai"); // Xóa ngày 9.3.2022
             }
             else
             {
@@ -651,7 +651,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
         Ql_strcpy(Number, pDeliverTextInfo->oa);
         if (Ql_strcmp(Number, "+84764316794"))
         {
-            APP_DEBUG("Saisodienthoai");  //Xóa ngày 9.3.2022
+            APP_DEBUG("Saisodienthoai"); // Xóa ngày 9.3.2022
         }
         else
         {
@@ -685,14 +685,14 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
         pDeliverTextInfo->scts,
         pDeliverTextInfo->length);*/
     // APP_DEBUG("data = %s\r\n",(pDeliverTextInfo->data));
-    //Điều chỉnh bỏ ký tự
+    // Điều chỉnh bỏ ký tự
     // Bỏ ký tự data ở đây
     // So sánh số điện thoại đúng với tin nhắn <160 ký tự.
     // if (strPhNum == (pDeliverTextInfo->oa))
     Ql_strcpy(Number, pDeliverTextInfo->oa);
     if (Ql_strcmp(Number, "+84764316794"))
     {
-        APP_DEBUG("Saisodienthoaigoi");   //Xóa ngày 9.3.2022
+        APP_DEBUG("Saisodienthoaigoi"); // Xóa ngày 9.3.2022
     }
     else
     {
@@ -781,7 +781,7 @@ static void CallBack_UART_Hdlr(Enum_SerialPort port, Enum_UARTEventType msg, boo
             break;
         }
 
-        //APP_DEBUG("<--ERROR-->\r\n");       //Xóa ngày 9.3.2022
+        // APP_DEBUG("<--ERROR-->\r\n");       //Xóa ngày 9.3.2022
     }
     break;
 
@@ -837,7 +837,7 @@ void proc_main_task(s32 iTaskID)
     // Register & open UART port
     InitSerialPort();
 
-    //APP_DEBUG("OpenCPU: SMS Example\r\n");    //Xóa ngày 9.3.2022
+    // APP_DEBUG("OpenCPU: SMS Example\r\n");    //Xóa ngày 9.3.2022
 
     // START MESSAGE LOOP OF THIS TASK
     while (TRUE)
@@ -850,7 +850,7 @@ void proc_main_task(s32 iTaskID)
         {
         case MSG_ID_RIL_READY:
         {
-            //APP_DEBUG("<-- RIL is ready -->\r\n");        //Xóa ngày 9.3.2022
+            // APP_DEBUG("<-- RIL is ready -->\r\n");        //Xóa ngày 9.3.2022
             Ql_RIL_Initialize(); // MUST call this function
             RIL_GPS_Open(1);
             for (i = 0; i < CON_SMS_BUF_MAX_CNT; i++)
@@ -865,11 +865,11 @@ void proc_main_task(s32 iTaskID)
             {
             case URC_SYS_INIT_STATE_IND:
             {
-                //APP_DEBUG("<-- Sys Init Status %d -->\r\n", taskMsg.param2);  //Xóa ngày 9.3.2022
+                // APP_DEBUG("<-- Sys Init Status %d -->\r\n", taskMsg.param2);  //Xóa ngày 9.3.2022
                 if (SYS_STATE_SMSOK == taskMsg.param2)
                 {
-                    //APP_DEBUG("\r\n<-- SMS module is ready -->\r\n"); //Xóa ngày 9.3.2022
-                    //APP_DEBUG("\r\n<-- Initialize SMS-related options -->\r\n");  //Xóa ngày 9.3.2022
+                    // APP_DEBUG("\r\n<-- SMS module is ready -->\r\n"); //Xóa ngày 9.3.2022
+                    // APP_DEBUG("\r\n<-- Initialize SMS-related options -->\r\n");  //Xóa ngày 9.3.2022
                     iResult = SMS_Initialize();
                     if (!iResult)
                     {
@@ -882,32 +882,33 @@ void proc_main_task(s32 iTaskID)
             }
             case URC_SIM_CARD_STATE_IND:
             {
-                //APP_DEBUG("\r\n<-- SIM Card Status:%d -->\r\n", taskMsg.param2);      //Xóa ngày 9.3.2022
+                // APP_DEBUG("\r\n<-- SIM Card Status:%d -->\r\n", taskMsg.param2);      //Xóa ngày 9.3.2022
             }
             break;
 
             case URC_GSM_NW_STATE_IND:
             {
-                //APP_DEBUG("\r\n<-- GSM Network Status:%d -->\r\n", taskMsg.param2);   //Xóa ngày 9.3.2022
+                // APP_DEBUG("\r\n<-- GSM Network Status:%d -->\r\n", taskMsg.param2);   //Xóa ngày 9.3.2022
                 break;
             }
 
             case URC_GPRS_NW_STATE_IND:
             {
-                //APP_DEBUG("\r\n<-- GPRS Network Status:%d -->\r\n", taskMsg.param2);  //Xóa ngày 9.3.2022
+                // APP_DEBUG("\r\n<-- GPRS Network Status:%d -->\r\n", taskMsg.param2);  //Xóa ngày 9.3.2022
                 break;
             }
 
             case URC_CFUN_STATE_IND:
             {
-                //APP_DEBUG("\r\n<-- CFUN Status:%d -->\r\n", taskMsg.param2);  //Xóa ngày 9.3.2022
+                // APP_DEBUG("\r\n<-- CFUN Status:%d -->\r\n", taskMsg.param2);  //Xóa ngày 9.3.2022
                 break;
             }
 
             case URC_COMING_CALL_IND:
             {
                 ST_ComingCall *pComingCall = (ST_ComingCall *)(taskMsg.param2);
-                APP_DEBUG("\r\n<-- Coming call, number:%s, type:%d -->\r\n", pComingCall->phoneNumber, pComingCall->type);
+                // APP_DEBUG("\r\n<-- Coming call, number:%s, type:%d -->\r\n", pComingCall->phoneNumber, pComingCall->type);
+                APP_DEBUG("\r\n<-- Coming call Server, number:%s>\r\n", pComingCall->phoneNumber, pComingCall->type);
                 break;
             }
 
@@ -935,5 +936,6 @@ void proc_main_task(s32 iTaskID)
     }
 }
 
-#endif // __OCPU_RIL_SUPPORT__ && __OCPU_RIL_SMS_SUPPORT__
-#endif //__EXAMPLE_ALARM__
+//#endif  __OCPU_RIL_SUPPORT__ && __OCPU_RIL_SMS_SUPPORT__
+//#endif //__EXAMPLE_ALARM__
+//#endif __CUSTOMER_CODE__
