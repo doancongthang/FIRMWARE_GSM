@@ -1,4 +1,6 @@
 //#ifdef __CUSTOMER_CODE__
+#include "ril_ftp.h"
+#include "fota_ftp.h" //Chỗ này chưa chắc
 #include "ril.h"
 #include "ril_util.h"
 #include "ql_type.h"
@@ -69,6 +71,9 @@ static bool ConSMSBuf_IsIntact(ConSMSStruct *pCSBuf, u8 uCSMaxCnt, u8 uIdx, ST_R
 static bool ConSMSBuf_AddSeg(ConSMSStruct *pCSBuf, u8 uCSMaxCnt, u8 uIdx, ST_RIL_SMS_Con *pCon, u8 *pData, u16 uLen);
 static s8 ConSMSBuf_GetIndex(ConSMSStruct *pCSBuf, u8 uCSMaxCnt, ST_RIL_SMS_Con *pCon);
 static bool ConSMSBuf_ResetCtx(ConSMSStruct *pCSBuf, u8 uCSMaxCnt, u8 uIdx);
+static s32 ATResponse_Handler(char* line, u32 len, void* userData);
+
+static Enum_SerialPort m_myUartPort  = UART_PORT1;
 static void gps_location(char *data, float *lat, float *lon, ticks *rs_new, u8 *hour, u8 *min, u8 *sec, u8 *day, u8 *month, u8 *year);
 void gps_speed(char *data, u8 *speed);
 ST_LocInfo locinfo;
@@ -812,6 +817,34 @@ static void InitSerialPort(void)
     {
         Ql_Debug_Trace("Fail to open UART port[%d], baud rate:115200, FC_NONE\r\n", UART_PORT1);
     }
+}
+
+static s32 ATResponse_Handler(char* line, u32 len, void* userData)
+{
+    Ql_UART_Write(m_myUartPort, (u8*)line, len);
+    
+    if (Ql_RIL_FindLine(line, len, "OK"))
+    {  
+        return  RIL_ATRSP_SUCCESS;
+    }
+    else if (Ql_RIL_FindLine(line, len, "ERROR"))
+    {  
+        return  RIL_ATRSP_FAILED;
+    }
+    else if (Ql_RIL_FindString(line, len, "+CME ERROR"))
+    {
+        return  RIL_ATRSP_FAILED;
+    }
+    else if (Ql_RIL_FindString(line, len, "+CMS ERROR:"))
+    {
+        return  RIL_ATRSP_FAILED;
+    }
+    return RIL_ATRSP_CONTINUE; //continue wait
+}
+
+static void FtpSerial(void)
+{
+
 }
 /*****************************************************************************
  * FUNCTION
