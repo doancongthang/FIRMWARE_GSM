@@ -1,6 +1,6 @@
 // #ifdef __CUSTOMER_CODE__
-#include "ril_ftp.h"
-#include "fota_ftp.h" //Chỗ này chưa chắc
+// #include "ril_ftp.h"
+// #include "fota_ftp.h" //Chỗ này chưa chắc
 #include "ril.h"
 #include "ril_util.h"
 #include "ql_type.h"
