@@ -1,4 +1,4 @@
-// #ifdef __CUSTOMER_CODE__
+//#ifdef __CUSTOMER_CODE__
 #include "ril_ftp.h"
 #include "fota_ftp.h" //Chỗ này chưa chắc
 #include "ril.h"
@@ -24,7 +24,7 @@
 #include "ql_gprs.h"
 #include "ril_network.h"
 #include "ril_location.h"
-// #if (defined(__OCPU_RIL_SUPPORT__) && defined(__OCPU_RIL_SMS_SUPPORT__))
+//#if (defined(__OCPU_RIL_SUPPORT__) && defined(__OCPU_RIL_SMS_SUPPORT__))
 #define APN "CMNET\0"
 #define USERID ""
 #define PASSWD ""
@@ -71,9 +71,9 @@ static bool ConSMSBuf_IsIntact(ConSMSStruct *pCSBuf, u8 uCSMaxCnt, u8 uIdx, ST_R
 static bool ConSMSBuf_AddSeg(ConSMSStruct *pCSBuf, u8 uCSMaxCnt, u8 uIdx, ST_RIL_SMS_Con *pCon, u8 *pData, u16 uLen);
 static s8 ConSMSBuf_GetIndex(ConSMSStruct *pCSBuf, u8 uCSMaxCnt, ST_RIL_SMS_Con *pCon);
 static bool ConSMSBuf_ResetCtx(ConSMSStruct *pCSBuf, u8 uCSMaxCnt, u8 uIdx);
-static s32 ATResponse_Handler(char *line, u32 len, void *userData);
+static s32 ATResponse_Handler(char* line, u32 len, void* userData);
 
-static Enum_SerialPort m_myUartPort = UART_PORT1;
+static Enum_SerialPort m_myUartPort  = UART_PORT1;
 static void gps_location(char *data, float *lat, float *lon, ticks *rs_new, u8 *hour, u8 *min, u8 *sec, u8 *day, u8 *month, u8 *year);
 void gps_speed(char *data, u8 *speed);
 ST_LocInfo locinfo;
@@ -762,40 +762,28 @@ static void CallBack_UART_Hdlr(Enum_SerialPort port, Enum_UARTEventType msg, boo
     {
     case EVENT_UART_READY_TO_READ:
     {
-        if (m_myUartPort == port)
+        char *p = NULL;
+        s32 totalBytes = ReadSerialPort(port, m_RxBuf_Uart, sizeof(m_RxBuf_Uart));
+        if (totalBytes <= 0)
         {
-            char *p = NULL;
-            s32 totalBytes = ReadSerialPort(port, m_RxBuf_Uart, sizeof(m_RxBuf_Uart));
-            if (totalBytes <= 0)
-            {
-                APP_DEBUG("<-- No data in UART buffer! -->\r\n");
-                return;
-            }
-            p = Ql_strstr(m_RxBuf_Uart, "THANGGSM");
-            if (p)
-            {
-                APP_DEBUG("OK");
-                break;
-            }
-            p = Ql_strstr(m_RxBuf_Uart, "IMEI");
-            if (p)
-            {
-                Ql_memset(GET_IMEI, 0x0, sizeof(GET_IMEI));
-                iRet = RIL_GetIMEI(GET_IMEI);
-                Ql_strncpy(IMEI, GET_IMEI + 2, 15);
-                APP_DEBUG("<-- IMEI: %s,-->\r\n", IMEI);
-                tRet = RIL_GetPowerSupply(&Cap, &Volt);
-                APP_DEBUG("<-- Cap :%d, voltage:%d -->\r\n", Cap, Volt);
-                break;
-            }
-            // No permission for single <cr><lf>
-            if (Ql_strlen((char *)m_RxBuf_Uart) == 0)
-            {
-                return;
-            }
-            // 22.6.2023
-            // ATCommand chỗ này, nhận cuộc gọi "ATA"
-            tRet = Ql_RIL_SendATCmd((char *)m_RxBuf_Uart, totalBytes, ATResponse_Handler, NULL, 0);
+            break;
+        }
+        p = Ql_strstr(m_RxBuf_Uart, "THANGGSM");
+        if (p)
+        {
+            APP_DEBUG("OK");
+            break;
+        }
+        p = Ql_strstr(m_RxBuf_Uart, "IMEI");
+        if (p)
+        {
+            Ql_memset(GET_IMEI, 0x0, sizeof(GET_IMEI));
+            iRet = RIL_GetIMEI(GET_IMEI);
+            Ql_strncpy(IMEI, GET_IMEI + 2, 15);
+            APP_DEBUG("<-- IMEI: %s,-->\r\n", IMEI);
+            tRet = RIL_GetPowerSupply(&Cap, &Volt);
+            APP_DEBUG("<-- Cap :%d, voltage:%d -->\r\n", Cap, Volt);
+            break;
         }
 
         // APP_DEBUG("<--ERROR-->\r\n");       //Xóa ngày 9.3.2022
@@ -831,32 +819,33 @@ static void InitSerialPort(void)
     }
 }
 
-static s32 ATResponse_Handler(char *line, u32 len, void *userData)
+static s32 ATResponse_Handler(char* line, u32 len, void* userData)
 {
-    Ql_UART_Write(m_myUartPort, (u8 *)line, len);
-
+    Ql_UART_Write(m_myUartPort, (u8*)line, len);
+    
     if (Ql_RIL_FindLine(line, len, "OK"))
-    {
-        return RIL_ATRSP_SUCCESS;
+    {  
+        return  RIL_ATRSP_SUCCESS;
     }
     else if (Ql_RIL_FindLine(line, len, "ERROR"))
-    {
-        return RIL_ATRSP_FAILED;
+    {  
+        return  RIL_ATRSP_FAILED;
     }
     else if (Ql_RIL_FindString(line, len, "+CME ERROR"))
     {
-        return RIL_ATRSP_FAILED;
+        return  RIL_ATRSP_FAILED;
     }
     else if (Ql_RIL_FindString(line, len, "+CMS ERROR:"))
     {
-        return RIL_ATRSP_FAILED;
+        return  RIL_ATRSP_FAILED;
     }
-    return RIL_ATRSP_CONTINUE; // continue wait
+    return RIL_ATRSP_CONTINUE; //continue wait
 }
 
-// static void FtpSerial(void)
-// {
-// }
+static void FtpSerial(void)
+{
+
+}
 /*****************************************************************************
  * FUNCTION
  *  proc_main_task
@@ -952,7 +941,7 @@ void proc_main_task(s32 iTaskID)
             {
                 ST_ComingCall *pComingCall = (ST_ComingCall *)(taskMsg.param2);
                 // APP_DEBUG("\r\n<-- Coming call, number:%s, type:%d -->\r\n", pComingCall->phoneNumber, pComingCall->type);
-                APP_DEBUG("\r\n<-- CALL_FROM_SERVER, number:%s>\r\n", pComingCall->phoneNumber, pComingCall->type);
+                APP_DEBUG("\r\n<-- Coming call Server, number:%s>\r\n", pComingCall->phoneNumber, pComingCall->type);
                 break;
             }
 
@@ -980,6 +969,6 @@ void proc_main_task(s32 iTaskID)
     }
 }
 
-// #endif  __OCPU_RIL_SUPPORT__ && __OCPU_RIL_SMS_SUPPORT__
-// #endif //__EXAMPLE_ALARM__
-// #endif __CUSTOMER_CODE__
+//#endif  __OCPU_RIL_SUPPORT__ && __OCPU_RIL_SMS_SUPPORT__
+//#endif //__EXAMPLE_ALARM__
+//#endif __CUSTOMER_CODE__
