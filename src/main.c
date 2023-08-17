@@ -77,7 +77,7 @@ static Enum_SerialPort m_myUartPort = UART_PORT1;
 static void gps_location(char *data, float *lat, float *lon, ticks *rs_new, u8 *hour, u8 *min, u8 *sec, u8 *day, u8 *month, u8 *year);
 void gps_speed(char *data, u8 *speed);
 ST_LocInfo locinfo;
-char strPhNum[] = "0909694794\0";
+char strPhNum[] = "0977413768\0";
 char strreply[] = "hello there\0";
 static char IMEI[20];
 static char GET_IMEI[20];
@@ -409,7 +409,7 @@ void SMS_TextMode_Read(u32 nIndex)
         // APP_DEBUG("\r\n\tmessage content:");
         // Tin nhắn dài sai số điện thoại chỉ định thì vào đây
         Ql_strcpy(Number, pDeliverTextInfo->oa);
-        if (Ql_strcmp(Number, "+84764316794"))
+        if (Ql_strcmp(Number, "+84977413768"))
         {
             APP_DEBUG("Saisodienthoai"); // Xóa ngày 9.3.2022
         }
@@ -586,7 +586,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
             // APP_DEBUG("data = %s\r\n", (pDeliverTextInfo->data));
 
             Ql_strcpy(Number, pDeliverTextInfo->oa);
-            if (Ql_strcmp(Number, "+84764316794"))
+            if (Ql_strcmp(Number, "+84977413768"))
             {
                 APP_DEBUG("Saisodienthoai"); // Xóa ngày 9.3.2022
             }
@@ -654,7 +654,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
         // }
 
         Ql_strcpy(Number, pDeliverTextInfo->oa);
-        if (Ql_strcmp(Number, "+84764316794"))
+        if (Ql_strcmp(Number, "+84977413768"))
         {
             APP_DEBUG("Saisodienthoai"); // Xóa ngày 9.3.2022
         }
@@ -695,7 +695,7 @@ static void Hdlr_RecvNewSMS(u32 nIndex, bool bAutoReply)
     // So sánh số điện thoại đúng với tin nhắn <160 ký tự.
     // if (strPhNum == (pDeliverTextInfo->oa))
     Ql_strcpy(Number, pDeliverTextInfo->oa);
-    if (Ql_strcmp(Number, "+84764316794"))
+    if (Ql_strcmp(Number, "+84977413768"))
     {
         APP_DEBUG("Saisodienthoaigoi"); // Xóa ngày 9.3.2022
     }
